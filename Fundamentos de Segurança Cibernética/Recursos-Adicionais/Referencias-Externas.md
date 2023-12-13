@@ -11,3 +11,4 @@
 9. [VMware](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html)
 10. [Parrot](https://www.parrotsec.org/)
 11. [Kali Linux](https://www.kali.org/get-kali/#kali-platforms)
+12. [FOCA (Fingerprinting Organizations with Collected Archives)](https://github.com/ElevenPaths/FOCA)
