@@ -1,6 +1,8 @@
-from scapy.all import sniff, DNSQR, DNSRR
+from scapy.all import sniff, DNSQR, DNSRR, DNS
 from datetime import datetime
 import time
+
+from utils import save_result
 
 def safe_decode(data):
     if isinstance(data, bytes):
@@ -37,13 +39,23 @@ def capture_dns_queries():
                         'response_ttl': rr.ttl
                     })
             dns_queries.append(query_info)
-    #-----
+    
     print('Capturando consultas DNS')
     sniff(filter='port 53', prn=packet_callback, store=0)
-    #-----
 
     end_time = time.time()
     capture_duration = end_time - start_time
 
-    print(f'Captura finalizada - com duração {capture_duration}, com total de {len(dns_queries)} consultas.')
+    print(f'Captura finalizada - com duração {(capture_duration):.2f} segundos, com total de {len(dns_queries)} consultas.')
+
+    save = input('Deseja salvar o resultado? (s/n)')
+    if save.lower() == 's':
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        data_to_save = {
+            'dns_queries': dns_queries,
+            'capture_duration': capture_duration,
+            'total_queries': len(dns_queries)
+        }
+
+        save_result(data_to_save, 'captura_dns', f'captura_dns_{timestamp}.json')
 
