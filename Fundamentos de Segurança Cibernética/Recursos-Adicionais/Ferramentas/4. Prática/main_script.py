@@ -5,6 +5,7 @@ from analyze_sql_injection import analyze_sql_injection
 from dns_utils import capture_dns_queries
 from port_scan_utils import port_scan
 from port_test_utils import test_open_ports_from_file
+from xss_analysis import test_xss
 
 def main_menu():
     while True:
@@ -17,7 +18,7 @@ def main_menu():
         print('1. DNS')
         print('2. Ports')
         print('3. Open ports')
-        print('4. SQL Injection')
+        print('4. SQL Injection ATENÇÃO')
         print('5. XSS')
         print('6. Brute Force')
         print('7. Packet sniffer')
@@ -49,7 +50,7 @@ def main_menu():
         elif choice == '4':
             analyze_sql_injection()
         elif choice == '5':
-            print('XSS')
+            test_xss()
         elif choice == '6':
             print('Brute Force')
         elif choice == '7':
