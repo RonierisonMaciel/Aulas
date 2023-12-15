@@ -1,0 +1,4 @@
+python3-nmap==1.6.0
+scapy==2.5.0
+simplejson==3.19.2
+sqlmap==1.7.12
