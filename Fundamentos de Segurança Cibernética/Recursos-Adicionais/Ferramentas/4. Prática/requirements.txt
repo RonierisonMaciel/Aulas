@@ -1,5 +1,10 @@
+certifi==2023.11.17
+charset-normalizer==3.3.2
+idna==3.6
 pyfiglet==1.0.2
 python3-nmap==1.6.0
+requests==2.31.0
 scapy==2.5.0
 simplejson==3.19.2
 sqlmap==1.7.12
+urllib3==2.1.0
