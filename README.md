@@ -44,4 +44,5 @@ Para mais informações sobre esta licença, visite [Creative Commons CC0 webpag
 # Contato 
 
 1. Prof. Ronierison Maciel
-2. E-mail ronierison[dot]maciel[at]gmail[dot]com
+2. E-mail [ronierison[dot]maciel[at]gmail[dot]com]
+3. [LinkedIn](https://www.linkedin.com/in/ronierisonmaciel/)
