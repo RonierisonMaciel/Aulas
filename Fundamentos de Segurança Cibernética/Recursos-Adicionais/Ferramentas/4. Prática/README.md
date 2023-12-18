@@ -41,5 +41,5 @@ python -m venv .venv
 4. Rodando a aplicação:
 
 ```powershell
-sudo python main_script.py
+python main_script.py
 ```
