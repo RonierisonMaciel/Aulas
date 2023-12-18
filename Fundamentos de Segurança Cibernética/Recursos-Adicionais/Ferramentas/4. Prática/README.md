@@ -24,12 +24,22 @@ sudo python main_script.py
 
 1. Rodando a aplicação no Windows:
 
-```bash
-Lucas insere aqui!
+```powershell
+python -m venv .venv
 ```
 
-2. Rodando a aplicação no Windows:
+2. Ativando o ambiente virtual:
 
-```bash
-Lucas insere aqui!
+```powershell
+.\.venv\Scripts\activate
+```
+
+3. Instalando os requerimentos:
+
+   - [Nmap/npcap](https://nmap.org/dist/nmap-7.94-setup.exe)
+
+4. Rodando a aplicação:
+
+```powershell
+sudo python main_script.py
 ```
