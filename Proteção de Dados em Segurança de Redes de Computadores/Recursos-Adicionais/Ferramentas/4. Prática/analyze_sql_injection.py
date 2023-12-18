@@ -1,5 +1,7 @@
 from subprocess import Popen, PIPE
+
 from utils import save_results
+
 
 def organize_output(filename):
     return filename.replace('http://', '').replace('https://', '').replace('/', '').replace('.', '_')
