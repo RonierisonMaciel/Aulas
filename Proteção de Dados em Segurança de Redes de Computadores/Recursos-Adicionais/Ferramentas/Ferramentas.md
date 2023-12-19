@@ -10,3 +10,5 @@
 8. [VMware](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html)
 9. [Parrot](https://www.parrotsec.org/)
 10. [Kali Linux](https://www.kali.org/get-kali/#kali-platforms)
+11. [Awesome Hacking](https://github.com/Hack-with-Github/Awesome-Hacking)
+12. [Hacking Security Ebooks](https://github.com/yeahhub/Hacking-Security-Ebooks)
