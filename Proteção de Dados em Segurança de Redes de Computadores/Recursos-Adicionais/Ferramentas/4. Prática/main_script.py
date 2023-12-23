@@ -12,7 +12,6 @@ from read_pcap import read_pcap_file
 from sniffer import use_sniffer
 from xss_analysis import test_xss
 
-
 def list_interfaces():
     interfaces = []
     for interface in netifaces.interfaces():
@@ -21,6 +20,23 @@ def list_interfaces():
             interfaces.append(interface)
     return interfaces
 
+def select_file_from_folder(folder):
+    try:
+        files = os.listdir(folder)
+    except FileNotFoundError:
+        print(f"Pasta '{folder}' não encontrada.")
+        return None
+
+    print(f"\nArquivos disponíveis em {folder}:")
+    for i, file in enumerate(files):
+        print(f"{i + 1} - {file}")
+    file_index = int(input(f"Escolha o número do arquivo de {folder}: ")) - 1
+
+    if 0 <= file_index < len(files):
+        return os.path.join(folder, files[file_index])
+    else:
+        print("Número de arquivo inválido.")
+        return None
 
 def main_menu():
     while True:
@@ -63,14 +79,19 @@ def main_menu():
         elif choice == '5':
             test_xss()
         elif choice == '6':
-            target_url = input('Digite a URL do alvo: ')
-            username = input('Digite o usuário: ')
-            password = input('Digite a senha: ')
-            service_module = input('Digite o módulo do serviço (http-post-form, ssh): ')
-            login_page = input('Digite a página de login (ex. login.php): ')
-            login_form = input("Digite o formulário de login ('user=^USER^&pass=^PASS^&login=Login') ")
-            fail_condition = input('Digite a condição de falha (ex. "incorrect" ou "failed"): ')
-            run_hydra(target_url, username, password, service_module, login_page, login_form, fail_condition)
+            password_file_path = select_file_from_folder("passwords")
+            user_file_path = select_file_from_folder("users")
+            if password_file_path and user_file_path:
+                target_url = input('Digite a URL ou IP do alvo: ')
+                service_module = input('Digite o módulo do serviço (ex: http-form-post): ')
+                login_page = input('Digite a página de login (ex: /userinfo.php): ')
+                params1 = input('Digite o primeiro parâmetro (ex: username): ')
+                params2 = input('Digite o segundo parâmetro (ex: password): ')
+                fail_condition = input('Digite a condição de falha (login page): ')
+                print('\n')
+                run_hydra(target_url, user_file_path, password_file_path, service_module, login_page, params1, params2, fail_condition)
+            else:
+                print("Erro ao selecionar os arquivos de usuário e senha.")
         elif choice == '7':
             interfaces = list_interfaces()
             print('Interfaces disponíveis são: ')

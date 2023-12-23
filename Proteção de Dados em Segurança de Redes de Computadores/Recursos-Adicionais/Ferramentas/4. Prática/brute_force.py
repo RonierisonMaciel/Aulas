@@ -1,27 +1,37 @@
+import os
+import re
 import subprocess
 
-from utils import save_results
+from utils import save_result
 
-def run_hydra(target_url, username, password, service_module, login_page, login_form, fail_condition):
+def run_hydra(target_url, user_file_path, pass_file_path, service_module, login_page, params1, params2, fail_condition):
     try:
-        print(f'O serviço em operação com Hydra é: {service_module}')
+        hydra_output_file = "hydra_result.txt"
+        command = f"hydra {target_url} {service_module} "\
+                  f"\"/{login_page}:{params1}=^USER^&={params2}^PASS^:{fail_condition}\" -L {user_file_path} -P {pass_file_path} -V -o {hydra_output_file}"
 
-        command = f"hydra -l {username} -p {password} {service_module}:// {target_url} '{login_page}:{login_form}:{fail_condition}'"
-        # resolver essa questão da requisição do USER e PASS
+        subprocess.run(command, shell=True, check=True)
 
-        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
+        if os.path.exists(hydra_output_file):
+            with open(hydra_output_file, 'r') as file:
+                hydra_output = file.read()
 
-        if 'Status password incorrect' in stdout.decode():
-            print('Login inválido')
+            success_pattern = re.compile(r"login:\s*(.*?)\s*password:\s*(.*?)$")
+            matches = success_pattern.findall(hydra_output)
+            if matches:
+                for username, password in matches:
+                    print(f"Combinação bem-sucedida encontrada: {username} / {password}")
+
+                save_option = input("Deseja salvar os resultados? (s/n): ")
+                if save_option.lower() == 's':
+                    save_result(matches, "hydra_results", f"hydra_{target_url.replace('/', '_')}.json")
+                    print("Resultados salvos.")
+            else:
+                print("Nenhuma combinação bem-sucedida encontrada.")
         else:
-            print('Login válido')
-            print(stdout.decode())
+            print("Arquivo de resultados do Hydra não encontrado.")
 
-            save = input('Deseja salvar o resultado? (s/n): ')
-            if save.lower() == 's':
-                save_results(stdout.decode(), 'hydra_results', f'hydra_{service_module}_{target_url}.txt')
-                print('Resultado salvo com sucesso!')
-    
+    except subprocess.CalledProcessError as e:
+        print(f"Erro ao executar Hydra: {e}")
     except Exception as e:
-        print(f'Problema com o Hydra: {e}')
+        print(f"Erro inesperado: {e}")
