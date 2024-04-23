@@ -1,6 +1,6 @@
 certifi==2023.11.17
 charset-normalizer==3.3.2
-idna==3.6
+idna==3.7
 netifaces2==0.0.19
 pyfiglet==1.0.2
 python3-nmap==1.6.0
