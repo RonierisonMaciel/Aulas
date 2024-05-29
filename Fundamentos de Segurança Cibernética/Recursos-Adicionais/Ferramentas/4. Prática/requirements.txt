@@ -4,7 +4,7 @@ idna==3.7
 netifaces2==0.0.19
 pyfiglet==1.0.2
 python3-nmap==1.6.0
-requests==2.31.0
+requests==2.32.0
 scapy==2.5.0
 simplejson==3.19.2
 sqlmap==1.7.12
