@@ -9,4 +9,4 @@ scapy==2.5.0
 simplejson==3.19.2
 sqlmap==1.7.12
 typing_extensions==4.9.0
-urllib3==2.1.0
+urllib3==2.2.2
